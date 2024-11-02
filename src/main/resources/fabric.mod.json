@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "craftmastery",
+	"version": "${version}",
+	"name": "CraftMastery",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Casian Cristian!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/craftmastery/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.casian.craftmastery.CraftMastery"
+		],
+		"client": [
+			"net.casian.craftmastery.CraftMasteryClient"
+		],
+		"fabric-datagen": [
+			"net.casian.craftmastery.CraftMasteryDataGenerator"
+		]
+	},
+	"mixins": [
+		"craftmastery.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.9",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

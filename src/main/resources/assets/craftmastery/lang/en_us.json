@@ -1,6 +1,16 @@
 {
   "item.craftmastery.ruby": "Ruby",
   "block.craftmastery.ruby_block": "Ruby Block",
+  "block.craftmastery.sound_block": "Sound Block",
+  "item.craftmastery.metal_detector": "Metal Detector",
+  "item.craftmastery.lumber_axe": "Lumber Axe",
+  "item.craftmastery.mining_hammer": "Mining Hammer",
+  "item.craftmastery.mining_pickaxe": "Mining Pickaxe",
+  "block.craftmastery.gem_polishing_station": "Gem Polishing Station",
+  "block.craftmastery.rolling_mill": "Rolling Mill",
+  "block.craftmastery.metal_press": "Metal Press",
+
+  "tooltip.craftmastery.metal_detector.tooltip": "Metal Detector which works great!",
 
   "itemgroup.ruby": "Craft Mastery"
 }

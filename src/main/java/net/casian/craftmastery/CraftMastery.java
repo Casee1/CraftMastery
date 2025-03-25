@@ -1,8 +1,12 @@
 package net.casian.craftmastery;
 
 import net.casian.craftmastery.block.ModBlocks;
+import net.casian.craftmastery.block.entity.ModBlockEntities;
 import net.casian.craftmastery.item.ModItemGroups;
 import net.casian.craftmastery.item.ModItems;
+import net.casian.craftmastery.item.ModToolItem;
+import net.casian.craftmastery.recipe.ModRecipes;
+import net.casian.craftmastery.screen.ModScreenHandlers;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -18,5 +22,11 @@ public class CraftMastery implements ModInitializer {
 		ModItems.registerModItems();
 		ModItemGroups.registerItemGroups();
 		ModBlocks.registerModBlock();
+		ModToolItem.registerModToolItems();
+
+		ModBlockEntities.registerBlockEntities();
+		ModScreenHandlers.registerScreenHandlers();
+
+		ModRecipes.registerRecipes();
 	}
 }

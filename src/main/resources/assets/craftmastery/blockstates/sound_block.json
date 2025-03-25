@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "craftmastery:block/sound_block"
+    }
+  }
+}

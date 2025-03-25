@@ -1,0 +1,11 @@
+{
+  "type": "craftmastery:rolling_mill",
+  "ingredients": [
+    {
+      "item": "minecraft:gold_ingot"
+    }
+  ],
+  "output": {
+    "item": "minecraft:coal"
+  }
+}

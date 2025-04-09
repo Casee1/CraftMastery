@@ -1,11 +1,12 @@
 {
   "type": "craftmastery:rolling_mill",
+  "count": 2,
   "ingredients": [
     {
-      "item": "minecraft:gold_ingot"
+      "item": "minecraft:iron_ingot"
     }
   ],
   "output": {
-    "item": "minecraft:coal"
+    "item": "craftmastery:tool_rod"
   }
 }

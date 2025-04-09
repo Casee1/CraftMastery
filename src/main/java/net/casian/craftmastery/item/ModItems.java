@@ -1,8 +1,6 @@
 package net.casian.craftmastery.item;
 
 import net.casian.craftmastery.CraftMastery;
-import net.casian.craftmastery.item.custom.LumberAxeItem;
-import net.casian.craftmastery.item.custom.MetalDetectorItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -14,14 +12,12 @@ import net.minecraft.util.Identifier;
 
 public class ModItems {
 
-    public static final Item RUBY = registerItem("ruby",new Item(new FabricItemSettings()));
+    public static final Item TOOL_ROD = registerItem("tool_rod", new Item(new FabricItemSettings()));
 
-    public static final Item METAL_DETECTOR = registerItem("metal_detector",
-            new MetalDetectorItem(new FabricItemSettings().maxDamage(64)));
-
+    public static final Item TOOL_PLATE = registerItem("tool_plate", new Item(new FabricItemSettings()));
 
     private static void addItemsToIngredientTabItemGroup(FabricItemGroupEntries entries) {
-        entries.add(RUBY);
+        entries.add(TOOL_ROD);
     }
 
     public static void registerModItems() {

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "###",
+    "###",
+    " $ "
+  ],
+  "key": {
+    "#": {
+      "item": "craftmastery:tool_plate"
+    },
+    "$": {
+      "item": "craftmastery:tool_rod"
+    }
+  },
+  "result": {
+    "item": "craftmastery:mining_hammer"
+  }
+}

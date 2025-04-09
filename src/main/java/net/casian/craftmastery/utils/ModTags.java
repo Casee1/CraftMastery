@@ -11,8 +11,6 @@ public class ModTags {
 
     public static class Blocks {
 
-        public static final TagKey<Block> METAL_DETECTOR_DETECTABLE_BLOCKS =
-                createTag("metal_detector_detectable_blocks");
 
         public static final TagKey<Block> MINING_HAMMER =
                 createTag("mineable/mining_hammer");

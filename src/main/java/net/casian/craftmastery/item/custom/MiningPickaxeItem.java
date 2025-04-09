@@ -3,14 +3,18 @@ package net.casian.craftmastery.item.custom;
 import net.casian.craftmastery.utils.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.text.Text;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -88,5 +92,11 @@ public class MiningPickaxeItem extends MiningToolItem {
 
     private boolean isOreBlock(BlockState blockState) {
         return blockState.isIn(ModTags.Blocks.ORE_BLOCKS);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        tooltip.add(Text.translatable("tooltip.craftmastery.mining_pickaxe.tooltip"));
+        super.appendTooltip(stack, world, tooltip, context);
     }
 }

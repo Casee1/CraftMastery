@@ -2,13 +2,17 @@ package net.casian.craftmastery.item.custom;
 
 import net.casian.craftmastery.utils.ModTags;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
+import net.minecraft.text.Text;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
@@ -89,4 +93,9 @@ public class LumberAxeItem extends MiningToolItem {
         return isWoodBlock(blockState) || isLeafBlock(blockState);
     }
 
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        tooltip.add(Text.translatable("tooltip.craftmastery.lumber_axe.tooltip"));
+        super.appendTooltip(stack, world, tooltip, context);
+    }
 }

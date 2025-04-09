@@ -1,11 +1,12 @@
 {
   "type": "craftmastery:metal_press",
+  "count": 4,
   "ingredients": [
     {
       "item": "minecraft:iron_ingot"
     }
   ],
   "output": {
-    "item": "minecraft:diamond"
+    "item": "craftmastery:tool_plate"
   }
 }

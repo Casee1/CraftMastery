@@ -1,16 +1,19 @@
 {
-  "item.craftmastery.ruby": "Ruby",
-  "block.craftmastery.ruby_block": "Ruby Block",
-  "block.craftmastery.sound_block": "Sound Block",
-  "item.craftmastery.metal_detector": "Metal Detector",
   "item.craftmastery.lumber_axe": "Lumber Axe",
   "item.craftmastery.mining_hammer": "Mining Hammer",
   "item.craftmastery.mining_pickaxe": "Mining Pickaxe",
-  "block.craftmastery.gem_polishing_station": "Gem Polishing Station",
+
   "block.craftmastery.rolling_mill": "Rolling Mill",
   "block.craftmastery.metal_press": "Metal Press",
 
-  "tooltip.craftmastery.metal_detector.tooltip": "Metal Detector which works great!",
+  "item.craftmastery.tool_rod": "Tool Rod",
+  "item.craftmastery.tool_plate": "Tool Plate",
+
+  "tooltip.craftmastery.lumber_axe.tooltip": "Lumber Axe which cuts the whole tree down",
+  "tooltip.craftmastery.mining_hammer.tooltip": "Mining Hammer which mines 3x3",
+  "tooltip.craftmastery.mining_pickaxe.tooltip": "Mining Pickaxe which mines all connected ores blocks of the same type",
+  "tooltip.craftmastery.rolling_mill.tooltip": "Rolling Mill machine which makes the Tool Rod",
+  "tooltip.craftmastery.metal_press.tooltip": "Metal Press machine which makes the Tool Plate",
 
   "itemgroup.ruby": "Craft Mastery"
 }

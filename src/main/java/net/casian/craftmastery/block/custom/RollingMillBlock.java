@@ -6,8 +6,11 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -18,9 +21,11 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class RollingMillBlock extends BlockWithEntity implements BlockEntityProvider {
 
-    private static final VoxelShape SHAPE = Block.createCuboidShape(0,0,0,16,12,16);
+    private static final VoxelShape SHAPE = Block.createCuboidShape(0,0,0,16,16,16);
 
     public RollingMillBlock(Settings settings) {
         super(settings);
@@ -74,5 +79,11 @@ public class RollingMillBlock extends BlockWithEntity implements BlockEntityProv
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         return validateTicker(type, ModBlockEntities.ROLLING_MILL_BLOCK_ENTITY,
                 (world1, pos, state1, blockEntity) -> blockEntity.tick(world1, pos, state1));
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable BlockView world, List<Text> tooltip, TooltipContext options) {
+        tooltip.add(Text.translatable("tooltip.craftmastery.rolling_mill.tooltip"));
+        super.appendTooltip(stack, world, tooltip, options);
     }
 }

@@ -8,9 +8,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 
 public class ModScreenHandlers {
-    public static final ScreenHandlerType<GemPolishingScreenHandler> GEM_POLISHING_SCREEN_HANDLER =
-            Registry.register(Registries.SCREEN_HANDLER, new Identifier(CraftMastery.MOD_ID, "gem_polishing"),
-                    new ExtendedScreenHandlerType<>(GemPolishingScreenHandler::new));
 
     public static final ScreenHandlerType<RollingMillScreenHandler> ROLLING_MILL_SCREEN_HANDLER =
             Registry.register(Registries.SCREEN_HANDLER, new Identifier(CraftMastery.MOD_ID, "rolling_mill"),

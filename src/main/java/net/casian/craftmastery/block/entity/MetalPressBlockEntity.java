@@ -1,9 +1,7 @@
 package net.casian.craftmastery.block.entity;
 
-import net.casian.craftmastery.recipe.GemPolishingRecipe;
 import net.casian.craftmastery.recipe.MetalPressRecipe;
 import net.casian.craftmastery.screen.MetalPressScreenHandler;
-import net.casian.craftmastery.screen.RollingMillScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -132,7 +130,7 @@ public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreen
     private void craftItem() {
         Optional<RecipeEntry<MetalPressRecipe>> recipe = getCurrentRecipe();
 
-        this.removeStack(INPUT_SLOT, 1);
+        this.removeStack(INPUT_SLOT, recipe.get().value().getCount());
 
         this.setStack(OUTPUT_SLOT, new ItemStack(recipe.get().value().getResult(null).getItem(),
                 getStack(OUTPUT_SLOT).getCount() + recipe.get().value().getResult(null).getCount()));

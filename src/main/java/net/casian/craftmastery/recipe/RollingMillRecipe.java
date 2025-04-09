@@ -18,9 +18,11 @@ public class RollingMillRecipe implements Recipe<SimpleInventory> {
 
     private final ItemStack output;
     private final List<Ingredient> recipeItems;
+    private final int count;
 
-    public RollingMillRecipe(List<Ingredient> recipeItems, ItemStack output) {
+    public RollingMillRecipe(List<Ingredient> recipeItems, int count, ItemStack output) {
         this.output = output;
+        this.count = count;
         this.recipeItems = recipeItems;
     }
 
@@ -30,7 +32,7 @@ public class RollingMillRecipe implements Recipe<SimpleInventory> {
             return false;
         }
 
-        return recipeItems.get(0).test(inventory.getStack(0));
+        return recipeItems.get(0).test(inventory.getStack(0)) && count <= inventory.getStack(0).getCount();
     }
 
     @Override
@@ -55,6 +57,10 @@ public class RollingMillRecipe implements Recipe<SimpleInventory> {
         return list;
     }
 
+    public int getCount() {
+        return count;
+    }
+
     @Override
     public RecipeSerializer<?> getSerializer() {
         return RollingMillRecipe.Serializer.INSTANCE;
@@ -77,6 +83,7 @@ public class RollingMillRecipe implements Recipe<SimpleInventory> {
 
         public static final Codec<RollingMillRecipe> CODEC = RecordCodecBuilder.create(in -> in.group(
                 validateAmount(Ingredient.DISALLOW_EMPTY_CODEC, 9).fieldOf("ingredients").forGetter(RollingMillRecipe::getIngredients),
+                Codec.INT.fieldOf("count").orElse(1).forGetter(RollingMillRecipe::getCount),
                 RecipeCodecs.CRAFTING_RESULT.fieldOf("output").forGetter(r -> r.output)
         ).apply(in, RollingMillRecipe::new));
 
@@ -98,9 +105,10 @@ public class RollingMillRecipe implements Recipe<SimpleInventory> {
             for(int i = 0; i < inputs.size(); i++) {
                 inputs.set(i, Ingredient.fromPacket(buf));
             }
+            int count = buf.readInt();
 
             ItemStack output = buf.readItemStack();
-            return new RollingMillRecipe(inputs, output);
+            return new RollingMillRecipe(inputs, count, output);
         }
 
         @Override

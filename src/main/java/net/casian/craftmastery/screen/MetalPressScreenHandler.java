@@ -1,6 +1,5 @@
 package net.casian.craftmastery.screen;
 
-import net.casian.craftmastery.block.entity.GemPolishingStationBlockEntity;
 import net.casian.craftmastery.block.entity.MetalPressBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;

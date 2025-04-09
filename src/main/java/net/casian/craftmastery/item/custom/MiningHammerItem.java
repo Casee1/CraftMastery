@@ -3,12 +3,17 @@ package net.casian.craftmastery.item.custom;
 import net.casian.craftmastery.utils.ModTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class MiningHammerItem extends MiningToolItem {
 
@@ -77,5 +82,11 @@ public class MiningHammerItem extends MiningToolItem {
         }
 
         return super.postMine(stack, world, state, pos, miner);
+    }
+
+    @Override
+    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
+        tooltip.add(Text.translatable("tooltip.craftmastery.mining_hammer.tooltip"));
+        super.appendTooltip(stack, world, tooltip, context);
     }
 }

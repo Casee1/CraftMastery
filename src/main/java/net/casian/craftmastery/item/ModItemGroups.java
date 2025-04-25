@@ -13,9 +13,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class ModItemGroups {
-    public static final ItemGroup RUBY_GROUP = Registry.register(Registries.ITEM_GROUP,
-            new Identifier(CraftMastery.MOD_ID, "ruby"),
-            FabricItemGroup.builder().displayName(Text.translatable("itemgroup.ruby"))
+    public static final ItemGroup CRAFTMASTERY_GROUP = Registry.register(Registries.ITEM_GROUP,
+            new Identifier(CraftMastery.MOD_ID, "tool_rod"),
+            FabricItemGroup.builder().displayName(Text.translatable("itemgroup.craftmastery"))
                     .icon(() -> new ItemStack(ModItems.TOOL_ROD)).entries((displayContext, entries) -> {
 
 
@@ -29,7 +29,7 @@ public class ModItemGroups {
                         entries.add(ModItems.TOOL_ROD);
                         entries.add(ModItems.TOOL_PLATE);
 
-
+                        entries.add(ModItems.MAGNET);
 
                     }).build());
 

@@ -28,11 +28,14 @@ public class RollingMillRecipe implements Recipe<SimpleInventory> {
 
     @Override
     public boolean matches(SimpleInventory inventory, World world) {
-        if(world.isClient()) {
-            return false;
+        if(!world.isClient()) {
+
+            if(recipeItems.get(0).test(inventory.getStack(0)) && count <= inventory.getStack(0).getCount()) {
+                return true;
+            }
         }
 
-        return recipeItems.get(0).test(inventory.getStack(0)) && count <= inventory.getStack(0).getCount();
+        return false;
     }
 
     @Override

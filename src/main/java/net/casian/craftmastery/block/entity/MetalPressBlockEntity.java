@@ -11,6 +11,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeEntry;
@@ -27,10 +28,11 @@ import java.util.Optional;
 
 public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreenHandlerFactory, ImplementedInventory {
 
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
+    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
 
     private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
+    private static final int FUEL_SLOT = 1;
+    private static final int OUTPUT_SLOT = 2;
 
     protected final PropertyDelegate propertyDelegate;
     private int progress = 0;
@@ -101,25 +103,28 @@ public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreen
 
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        if(world.isClient()) {
-            return;
-        }
+        if(!world.isClient()) {
+            if(isOutputSlotEmptyOrReceivable()) {
+                if(this.hasRecipe()) {
+                    if(this.hasEnoughFuel()) {
+                        this.increaseCraftProgress();
+                        markDirty(world, pos, state);
 
-        if(isOutputSlotEmptyOrReceivable()) {
-            if(this.hasRecipe()) {
-                this.increaseCraftProgress();
-                markDirty(world, pos, state);
-
-                if(hasCraftingFinished()) {
-                    this.craftItem();
+                        if(hasCraftingFinished()) {
+                            this.craftItem();
+                            this.consumeFuel();
+                            this.resetProgress();
+                        }
+                    } else {
+                        this.resetProgress();
+                    }
+                } else {
                     this.resetProgress();
                 }
             } else {
                 this.resetProgress();
+                markDirty(world, pos, state);
             }
-        } else {
-            this.resetProgress();
-            markDirty(world, pos, state);
         }
     }
 
@@ -137,7 +142,11 @@ public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreen
     }
 
     private boolean hasCraftingFinished() {
-        return progress >= maxProgress;
+        if(progress >= maxProgress) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void increaseCraftProgress() {
@@ -147,28 +156,74 @@ public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreen
     private boolean hasRecipe() {
         Optional<RecipeEntry<MetalPressRecipe>> recipe = getCurrentRecipe();
 
-        return recipe.isPresent() && canInsertAmountIntoOutputSlot(recipe.get().value().getResult(null))
-                && canInsertItemIntoOutputSlot(recipe.get().value().getResult(null).getItem());
+        if(recipe.isPresent() && canInsertAmountIntoOutputSlot(recipe.get().value().getResult(null))
+                && canInsertItemIntoOutputSlot(recipe.get().value().getResult(null).getItem())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private Optional<RecipeEntry<MetalPressRecipe>> getCurrentRecipe() {
-        SimpleInventory inv = new SimpleInventory(this.size());
+        SimpleInventory simpleInventory = new SimpleInventory(this.size());
         for(int i = 0; i < this.size(); i++) {
-            inv.setStack(i, this.getStack(i));
+            simpleInventory.setStack(i, this.getStack(i));
         }
 
-        return getWorld().getRecipeManager().getFirstMatch(MetalPressRecipe.Type.INSTANCE, inv, getWorld());
+        return getWorld().getRecipeManager().getFirstMatch(MetalPressRecipe.Type.INSTANCE, simpleInventory, getWorld());
     }
 
     private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.getStack(OUTPUT_SLOT).getItem() == item || this.getStack(OUTPUT_SLOT).isEmpty();
+        if (this.getStack(OUTPUT_SLOT).getItem() == item) {
+            return true;
+        }
+        if (this.getStack(OUTPUT_SLOT).isEmpty()) {
+            return true;
+        }
+        return false;
     }
 
     private boolean canInsertAmountIntoOutputSlot(ItemStack result) {
-        return this.getStack(OUTPUT_SLOT).getCount() + result.getCount() <= getStack(OUTPUT_SLOT).getMaxCount();
+        int currentCount = this.getStack(OUTPUT_SLOT).getCount();
+        int resultCount = result.getCount();
+        int maxCount = getStack(OUTPUT_SLOT).getMaxCount();
+
+        if(currentCount + resultCount <= maxCount) {
+            return true;
+        }
+        return false;
     }
 
     private boolean isOutputSlotEmptyOrReceivable() {
-        return this.getStack(OUTPUT_SLOT).isEmpty() || this.getStack(OUTPUT_SLOT).getCount() < this.getStack(OUTPUT_SLOT).getMaxCount();
+        ItemStack itemStack = this.getStack(OUTPUT_SLOT);
+        if(itemStack.isEmpty()) {
+            return true;
+        }
+
+        if(itemStack.getCount() < itemStack.getMaxCount()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isValidFuel(ItemStack itemStack ) {
+        return itemStack.isOf(Items.COAL);
+    }
+
+    public boolean hasEnoughFuel() {
+        ItemStack fuelStack = this.getStack(FUEL_SLOT);
+        Optional<RecipeEntry<MetalPressRecipe>> recipe = getCurrentRecipe();
+
+        if (!fuelStack.isEmpty() && fuelStack.getCount() >= recipe.get().value().getCount() + 1 && isValidFuel(fuelStack)) {
+            return true;
+        }
+        return false;
+
+    }
+
+    public void consumeFuel() {
+        Optional<RecipeEntry<MetalPressRecipe>> recipe = getCurrentRecipe();
+
+        this.removeStack(FUEL_SLOT, recipe.get().value().getCount() + 1);
     }
 }

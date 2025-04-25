@@ -32,7 +32,8 @@ public class MetalPressScreenHandler extends ScreenHandler {
         this.blockEntity = ((MetalPressBlockEntity) blockEntity);
 
         this.addSlot(new Slot(inventory, 0, 80, 11));
-        this.addSlot(new Slot(inventory, 1, 80, 59));
+        this.addSlot(new Slot(inventory, 1, 97, 33));
+        this.addSlot(new Slot(inventory, 2, 80, 59));
 
 
         addPlayerInventory(playerInventory);

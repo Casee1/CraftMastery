@@ -1,6 +1,7 @@
 package net.casian.craftmastery.item;
 
 import net.casian.craftmastery.CraftMastery;
+import net.casian.craftmastery.item.custom.Magnet;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -16,14 +17,12 @@ public class ModItems {
 
     public static final Item TOOL_PLATE = registerItem("tool_plate", new Item(new FabricItemSettings()));
 
-    private static void addItemsToIngredientTabItemGroup(FabricItemGroupEntries entries) {
-        entries.add(TOOL_ROD);
-    }
+    public static final Item MAGNET = registerItem("magnet", new Magnet(new FabricItemSettings().maxDamage(64)));
+
 
     public static void registerModItems() {
         CraftMastery.LOGGER.info("Registering Mod Items for " + CraftMastery.MOD_ID);
 
-        ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(ModItems::addItemsToIngredientTabItemGroup);
     }
 
     private static Item registerItem(String name, Item item) {

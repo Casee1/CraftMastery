@@ -9,11 +9,14 @@
   "item.craftmastery.tool_rod": "Tool Rod",
   "item.craftmastery.tool_plate": "Tool Plate",
 
+  "item.craftmastery.magnet": "Magnet",
+
   "tooltip.craftmastery.lumber_axe.tooltip": "Lumber Axe which cuts the whole tree down",
   "tooltip.craftmastery.mining_hammer.tooltip": "Mining Hammer which mines 3x3",
   "tooltip.craftmastery.mining_pickaxe.tooltip": "Mining Pickaxe which mines all connected ores blocks of the same type",
   "tooltip.craftmastery.rolling_mill.tooltip": "Rolling Mill machine which makes the Tool Rod",
   "tooltip.craftmastery.metal_press.tooltip": "Metal Press machine which makes the Tool Plate",
+  "tooltip.craftmastery.magnet.tooltip": "Magnet which pulls nearby dropped items",
 
-  "itemgroup.ruby": "Craft Mastery"
+  "itemgroup.craftmastery": "Craft Mastery"
 }

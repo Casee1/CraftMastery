@@ -66,7 +66,9 @@ public class MetalPressBlock extends BlockWithEntity implements BlockEntityProvi
         if (!world.isClient) {
             NamedScreenHandlerFactory screenHandlerFactory = ((MetalPressBlockEntity) world.getBlockEntity(pos));
 
-            if (screenHandlerFactory != null) {
+            if (screenHandlerFactory == null) {
+                return ActionResult.FAIL;
+            } else {
                 player.openHandledScreen(screenHandlerFactory);
             }
         }

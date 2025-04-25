@@ -65,7 +65,9 @@ public class RollingMillBlock extends BlockWithEntity implements BlockEntityProv
         if (!world.isClient) {
             NamedScreenHandlerFactory screenHandlerFactory = ((RollingMillBlockEntity) world.getBlockEntity(pos));
 
-            if (screenHandlerFactory != null) {
+            if (screenHandlerFactory == null) {
+                return ActionResult.FAIL;
+            } else {
                 player.openHandledScreen(screenHandlerFactory);
             }
         }

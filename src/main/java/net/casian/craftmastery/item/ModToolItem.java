@@ -5,7 +5,6 @@ import net.casian.craftmastery.item.custom.LumberAxeItem;
 import net.casian.craftmastery.item.custom.MiningHammerItem;
 import net.casian.craftmastery.item.custom.MiningPickaxeItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

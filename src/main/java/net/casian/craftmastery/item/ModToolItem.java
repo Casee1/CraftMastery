@@ -16,7 +16,7 @@ public class ModToolItem {
             new LumberAxeItem(new FabricItemSettings().maxDamage(1328)));
 
     public static final MiningToolItem MINING_HAMMER = registerItem("mining_hammer",
-            new MiningHammerItem(new FabricItemSettings().maxDamage(2158)));
+            new MiningHammerItem(new FabricItemSettings().maxDamage(2166)));
 
     public static final MiningToolItem MINING_PICKAXE = registerItem("mining_pickaxe",
             new MiningPickaxeItem(new FabricItemSettings().maxDamage(1328)));

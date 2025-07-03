@@ -34,7 +34,7 @@ public class LumberAxeItem extends MiningToolItem {
 
             stackPosition.push(new Pair<>(pos, state));
 
-            int nrOfBlocksCut = 0;
+            int nrOfBlocksCut = 1;
 
             int di[] = {-1, 1};
             int dz[] = {-1, 1};

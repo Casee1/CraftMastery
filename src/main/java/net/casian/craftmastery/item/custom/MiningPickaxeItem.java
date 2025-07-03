@@ -28,7 +28,7 @@ public class MiningPickaxeItem extends MiningToolItem {
     @Override
     public boolean postMine(ItemStack stack, World world, BlockState state, BlockPos pos, LivingEntity miner) {
         if(!world.isClient() && isMineableBlock(state)) {
-            int nrOfBlocksCut = 0;
+            int nrOfBlocksCut = 1;
             if (isOreBlock(state)) {
                 Stack<Pair<BlockPos, BlockState>> stackPosition  = new Stack<>();
                 Set<BlockPos> visited = new HashSet<>();

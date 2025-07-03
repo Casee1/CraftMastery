@@ -32,7 +32,7 @@ public class MiningHammerItem extends MiningToolItem {
             int di[];
             int dj[];
             int dz[];
-            int nrOfBlocksCut = 0;
+            int nrOfBlocksCut = 1;
             if(pitch < -45 || pitch > 45){ //inseamna ca mineaza in jos sau un sus
                 di = new int[] {-1,0,1};
                 dj = new int[] {0,0,0};

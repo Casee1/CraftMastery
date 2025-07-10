@@ -114,8 +114,8 @@ public class RollingMillBlockEntity extends BlockEntity implements ExtendedScree
                     markDirty(world, pos, state);
 
                     if(hasCraftingFinished()) {
-                        this.craftItem();
                         this.consumeFuel();
+                        this.craftItem();
                         this.resetProgress();
                     }
                 } else {
@@ -136,11 +136,13 @@ public class RollingMillBlockEntity extends BlockEntity implements ExtendedScree
 
     private void craftItem() {
         Optional<RecipeEntry<RollingMillRecipe>> recipe = getCurrentRecipe();
-
-        this.removeStack(INPUT_SLOT, recipe.get().value().getCount());
-
-        this.setStack(OUTPUT_SLOT, new ItemStack(recipe.get().value().getResult(null).getItem(),
-                getStack(OUTPUT_SLOT).getCount() + recipe.get().value().getResult(null).getCount()));
+        recipe.ifPresent(r -> {
+            this.removeStack(INPUT_SLOT, r.value().getCount());
+            this.setStack(OUTPUT_SLOT, new ItemStack(
+                    r.value().getResult(null).getItem(),
+                    getStack(OUTPUT_SLOT).getCount() + r.value().getResult(null).getCount()
+            ));
+        });
     }
 
     private boolean hasCraftingFinished() {
@@ -225,7 +227,8 @@ public class RollingMillBlockEntity extends BlockEntity implements ExtendedScree
 
     public void consumeFuel() {
         Optional<RecipeEntry<RollingMillRecipe>> recipe = getCurrentRecipe();
-
-        this.removeStack(FUEL_SLOT, recipe.get().value().getCount() + 1);
+        recipe.ifPresent(r -> {
+            this.removeStack(FUEL_SLOT, r.value().getCount() + 1);
+        });
     }
 }

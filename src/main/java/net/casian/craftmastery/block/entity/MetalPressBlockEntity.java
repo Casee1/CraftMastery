@@ -1,6 +1,7 @@
 package net.casian.craftmastery.block.entity;
 
 import net.casian.craftmastery.recipe.MetalPressRecipe;
+import net.casian.craftmastery.recipe.RollingMillRecipe;
 import net.casian.craftmastery.screen.MetalPressScreenHandler;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
@@ -103,19 +104,19 @@ public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreen
 
 
     public void tick(World world, BlockPos pos, BlockState state) {
-        if(!world.isClient()) {
-            if(isOutputSlotEmptyOrReceivable()) {
-                if(this.hasRecipe()) {
-                    if(this.hasEnoughFuel()) {
-                        this.increaseCraftProgress();
-                        markDirty(world, pos, state);
+        if(world.isClient()) {
+            return;
+        }
 
-                        if(hasCraftingFinished()) {
-                            this.craftItem();
-                            this.consumeFuel();
-                            this.resetProgress();
-                        }
-                    } else {
+        if(isOutputSlotEmptyOrReceivable()) {
+            if(this.hasRecipe()) {
+                if(this.hasEnoughFuel()) {
+                    this.increaseCraftProgress();
+                    markDirty(world, pos, state);
+
+                    if(hasCraftingFinished()) {
+                        this.consumeFuel();
+                        this.craftItem();
                         this.resetProgress();
                     }
                 } else {
@@ -123,8 +124,10 @@ public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreen
                 }
             } else {
                 this.resetProgress();
-                markDirty(world, pos, state);
             }
+        } else {
+            this.resetProgress();
+            markDirty(world, pos, state);
         }
     }
 
@@ -134,11 +137,13 @@ public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreen
 
     private void craftItem() {
         Optional<RecipeEntry<MetalPressRecipe>> recipe = getCurrentRecipe();
-
-        this.removeStack(INPUT_SLOT, recipe.get().value().getCount());
-
-        this.setStack(OUTPUT_SLOT, new ItemStack(recipe.get().value().getResult(null).getItem(),
-                getStack(OUTPUT_SLOT).getCount() + recipe.get().value().getResult(null).getCount()));
+        recipe.ifPresent(r -> {
+            this.removeStack(INPUT_SLOT, r.value().getCount());
+            this.setStack(OUTPUT_SLOT, new ItemStack(
+                    r.value().getResult(null).getItem(),
+                    getStack(OUTPUT_SLOT).getCount() + r.value().getResult(null).getCount()
+            ));
+        });
     }
 
     private boolean hasCraftingFinished() {
@@ -223,7 +228,8 @@ public class MetalPressBlockEntity extends BlockEntity implements ExtendedScreen
 
     public void consumeFuel() {
         Optional<RecipeEntry<MetalPressRecipe>> recipe = getCurrentRecipe();
-
-        this.removeStack(FUEL_SLOT, recipe.get().value().getCount() + 1);
+        recipe.ifPresent(r -> {
+            this.removeStack(FUEL_SLOT, r.value().getCount() + 1);
+        });
     }
 }

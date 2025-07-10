@@ -55,8 +55,6 @@ public class MiningHammerItem extends MiningToolItem {
             }
 
 
-            world.breakBlock(pos,true);
-
 
             BlockState initialBlockState = state;
 
@@ -81,7 +79,7 @@ public class MiningHammerItem extends MiningToolItem {
                     playerEntity -> playerEntity.sendToolBreakStatus(playerEntity.getActiveHand()));
         }
 
-        return super.postMine(stack, world, state, pos, miner);
+        return true;
     }
 
     @Override

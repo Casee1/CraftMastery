@@ -33,7 +33,7 @@ public class MiningHammerItem extends MiningToolItem {
             int dj[];
             int dz[];
             int nrOfBlocksCut = 1;
-            if(pitch < -45 || pitch > 45){ //inseamna ca mineaza in jos sau un sus
+            if(pitch < -45 || pitch > 45){
                 di = new int[] {-1,0,1};
                 dj = new int[] {0,0,0};
                 dz = new int[] {-1,0,1};
@@ -77,9 +77,11 @@ public class MiningHammerItem extends MiningToolItem {
 
             stack.damage(nrOfBlocksCut, miner,
                     playerEntity -> playerEntity.sendToolBreakStatus(playerEntity.getActiveHand()));
+
+            return true;
         }
 
-        return true;
+        return super.postMine(stack, world, state, pos, miner);
     }
 
     @Override

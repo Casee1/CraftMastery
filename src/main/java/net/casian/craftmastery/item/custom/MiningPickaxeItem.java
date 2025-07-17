@@ -81,9 +81,11 @@ public class MiningPickaxeItem extends MiningToolItem {
 
             stack.damage(nrOfBlocksCut, miner,
                     playerEntity -> playerEntity.sendToolBreakStatus(playerEntity.getActiveHand()));
+
+            return true;
         }
 
-        return true;
+        return super.postMine(stack, world, state, pos, miner);
     }
 
     private boolean isMineableBlock(BlockState blockState) {
